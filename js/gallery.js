@@ -87,9 +87,10 @@ const gallery = document.querySelector(".gallery");
 gallery.innerHTML = createGallery(images);
 
 gallery.addEventListener("click", (event) => {
-  event.preventDefault();
-  console.log(event.target.dataset.source);
-  const instance = basicLightbox.create(`
+  if (event.target.nodeName === "IMG") {
+    event.preventDefault();
+    console.log(event.target.dataset.source);
+    const instance = basicLightbox.create(`
      <div class="modal">
         <img
           class="modal-image"
@@ -97,5 +98,6 @@ gallery.addEventListener("click", (event) => {
           alt="${event.target.alt}"
         />
       </div>`);
-  instance.show();
+    instance.show();
+  }
 });
